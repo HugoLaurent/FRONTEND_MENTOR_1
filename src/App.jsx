@@ -1,13 +1,103 @@
 import "./App.css";
+import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useRef, useState, useMemo } from "react";
 
+// Image imports
 import mainImg from "./assets/images/desktop-image-hero-1.jpg";
+import mainImgMobile from "./assets/images/mobile-image-hero-1.jpg";
+import mainImg2 from "./assets/images/desktop-image-hero-2.jpg";
+import mainImg2Mobile from "./assets/images/mobile-image-hero-2.jpg";
+import mainImg3 from "./assets/images/desktop-image-hero-3.jpg";
+import mainImg3Mobile from "./assets/images/mobile-image-hero-3.jpg";
+import leftImg from "./assets/images/image-about-dark.jpg";
+import rightImg from "./assets/images/image-about-light.jpg";
+import arrowButtonIcon from "./assets/icons/icon-arrow.svg";
+import arrowLeftIcon from "./assets/icons/icon-angle-left.svg";
+import arrowRightIcon from "./assets/icons/icon-angle-right.svg";
 
 const dataNavbar = ["home", "shop", "about", "contact"];
+
 function App() {
+  const [widthScreen, setWidthScreen] = useState(window.innerWidth);
+  const [mainImage, setMainImage] = useState(0);
+
+  // Determine which image set to use based on screen width
+  const imageArray = useMemo(() => {
+    if (widthScreen <= 768) {
+      return [mainImgMobile, mainImg2Mobile, mainImg3Mobile];
+    }
+    return [mainImg, mainImg2, mainImg3];
+  }, [widthScreen]);
+
+  const topWidth = useRef(null);
+  const leftImageBottom = useRef(null);
+  const middleTextContainer = useRef(null);
+  const [totalWidth, setTotalWidth] = useState(0);
+
+  // Function to update the width of the screen
+  const updateWidth = () => {
+    setWidthScreen(window.innerWidth);
+  };
+
+  useEffect(() => {
+    // Add the resize event listener
+    window.addEventListener("resize", updateWidth);
+
+    // Cleanup function to remove the listener when the component unmounts
+    return () => {
+      window.removeEventListener("resize", updateWidth);
+    };
+  }, []);
+
+  useEffect(() => {
+    console.log(widthScreen);
+  }, [widthScreen]);
+
+  const plusImage = () => {
+    setMainImage((prev) => (prev >= 2 ? 0 : prev + 1));
+  };
+
+  const minusImage = () => {
+    setMainImage((prev) => (prev <= 0 ? 2 : prev - 1));
+  };
+
+  useEffect(() => {
+    const updateWidth = () => {
+      if (
+        middleTextContainer.current &&
+        leftImageBottom.current &&
+        topWidth.current
+      ) {
+        setTotalWidth(
+          middleTextContainer.current.clientWidth +
+            leftImageBottom.current.clientWidth -
+            topWidth.current.clientWidth
+        );
+      }
+    };
+
+    // Update width on initial mount
+    updateWidth();
+
+    // Add resize event listener
+    window.addEventListener("resize", updateWidth);
+
+    // Cleanup listener
+    return () => window.removeEventListener("resize", updateWidth);
+  }, [middleTextContainer, leftImageBottom, topWidth]);
+
+  const imageStyles = {
+    position: widthScreen <= 768 ? "relative" : "absolute",
+    width: "100%",
+    height: widthScreen <= 768 ? "auto" : "100%",
+    objectFit: widthScreen <= 768 ? "contain" : "cover",
+    zIndex: 1,
+  };
+
   return (
     <>
       <header className="header">
-        <h1 className="header__title header__title--highlight">ROOM</h1>
+        <h1 className="header__title header__title--highlight">room</h1>
 
         <ul className="navbar__list">
           {dataNavbar.map((item, index) => (
@@ -19,11 +109,32 @@ function App() {
       </header>
 
       <main className="main-content">
-        <section className="main-content__section main-content__section--top">
-          <article className="main-content__article">
-            <img className="article__image" src={mainImg} alt="Placeholder" />
+        <section className="main-content__top">
+          <article ref={topWidth} className="left">
+            <motion.div
+              style={{
+                position: "relative",
+                width: "100%",
+                height: widthScreen <= 768 ? "auto" : "100%",
+                overflow: "hidden",
+              }}
+            >
+              <AnimatePresence>
+                <motion.img
+                  key={imageArray[mainImage]}
+                  className="article__image"
+                  src={imageArray[mainImage]}
+                  alt="Placeholder"
+                  style={imageStyles}
+                  initial={{ opacity: 0, scale: 1.2 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 1 }}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
+                />
+              </AnimatePresence>
+            </motion.div>
           </article>
-          <article className="main-content__article--wrapper">
+          <article className="right">
             <div className="main-content__article main-content__article--text">
               <h2 className="article__title">
                 Discover innovative ways to decorate
@@ -36,39 +147,49 @@ function App() {
                 and what you love.
               </p>
               <button className="article__button article__button--highlight">
-                Shop Now
+                <span>Shop Now</span>
+                <img className="image-arrow" src={arrowButtonIcon} alt="" />
               </button>
             </div>
-            <div className="main-content__article-buttons">
-              <button className="article__button">B1</button>
-              <button className="article__button">B2</button>
+            <div
+              style={{
+                width: totalWidth + "px",
+                height: totalWidth / 2 + "px",
+              }}
+              className="main-content__article-buttons"
+            >
+              <button onClick={minusImage} className="article__button--nav">
+                <img src={arrowLeftIcon} alt="" />
+              </button>
+              <button onClick={plusImage} className="article__button--nav">
+                <img src={arrowRightIcon} alt="" />
+              </button>
             </div>
           </article>
         </section>
 
-        <section className="main-content__section">
-          <article className="main-content__article">
+        <section className="footer">
+          <article className="footer_item footer-image">
             <img
+              ref={leftImageBottom}
               className="article__image"
-              src="https://via.placeholder.com/150"
+              src={leftImg}
               alt=""
             />
           </article>
-          <article className="main-content__article">
-            <h3 className="article__subtitle">Lorem ipsum dolor sit amet.</h3>
+          <article ref={middleTextContainer} className="footer_item middle">
+            <h3 className="article__subtitle">ABOUT OUR FURNITURE</h3>
             <p className="article__description">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore
-              rerum nisi iusto dolor voluptatum quia veniam suscipit, sed, id
-              nobis quis necessitatibus repudiandae ut quo commodi dolorem aut
-              distinctio sequi.
+              Our multifunctional collection blends design and function to suit
+              your individual taste. Make each room unique, or pick a cohesive
+              theme that best express your interests and what inspires you. Find
+              the furniture pieces you need, from traditional to contemporary
+              styles or anything in between. Product specialists are available
+              to help you create your dream space.
             </p>
           </article>
-          <article className="main-content__article">
-            <img
-              className="article__image"
-              src="https://via.placeholder.com/150"
-              alt=""
-            />
+          <article className="footer_item footer-image">
+            <img className="article__image" src={rightImg} alt="" />
           </article>
         </section>
       </main>
