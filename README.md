@@ -1,49 +1,44 @@
 # Room Homepage - Frontend Mentor Challenge
 
-Ce projet est une solution au [Room Homepage Challenge](https://www.frontendmentor.io/challenges/room-homepage-BtdBY_ENq) sur Frontend Mentor. L'objectif était de créer une page d'accueil en utilisant HTML, CSS et JavaScript avec React, tout en respectant au mieux le design fourni.
+This project is a solution to the [Room Homepage Challenge](https://www.frontendmentor.io/challenges/room-homepage-BtdBY_ENq) on Frontend Mentor. The goal was to create a homepage using HTML, CSS, and JavaScript with React, while adhering closely to the provided design.
 
-## Table des Matières
+## Table of Contents
 
 - [Room Homepage - Frontend Mentor Challenge](#room-homepage---frontend-mentor-challenge)
-  - [Table des Matières](#table-des-matières)
-  - [Aperçu](#aperçu)
-  - [Fonctionnalités](#fonctionnalités)
-  - [Technologies Utilisées](#technologies-utilisées)
-  - [Utilisation](#utilisation)
-  - [Ce Que J'ai Appris](#ce-que-jai-appris)
-  - [Défis](#défis)
+  - [Table of Contents](#table-of-contents)
+  - [Overview](#overview)
+  - [Features](#features)
+  - [Technologies Used](#technologies-used)
+  - [What I Learned](#what-i-learned)
+  - [Challenges](#challenges)
 
-## Aperçu
+## Overview
 
-Le projet "Room Homepage" est une page d'accueil pour un site de mobilier. Il propose aux utilisateurs une section d'image principale dynamique qui peut être naviguée via des boutons. Les images affichées sont adaptées pour les vues desktop et mobile. Le site est conçu pour être entièrement responsive et fonctionnel sur plusieurs tailles d'écran.
+The "Room Homepage" project is a homepage for a furniture website. It offers users a dynamic main image section that can be navigated via buttons. The displayed images are optimized for both desktop and mobile views. The site is designed to be fully responsive and functional across various screen sizes.
 
-## Fonctionnalités
+## Features
 
-- **Layout Responsive** : Le design s'adapte à différentes tailles d'écrans, y compris les versions desktop et mobile.
-- **Carousel d'Images Dynamique** : Utilisation de `framer-motion` pour des transitions fluides entre les images principales.
-- **Navbar pour Mobile et Desktop** : Un menu hamburger apparaît sur mobile avec un bouton de fermeture pour une navigation facile.
-- **Transitions Animées** : Utilisation de `framer-motion` pour des animations fluides lors des changements d'images.
-- **Boutons de Navigation** : Les utilisateurs peuvent naviguer entre les images du carousel via des boutons de navigation personnalisés.
+- **Responsive Layout**: The design adapts to different screen sizes, including both desktop and mobile versions.
+- **Dynamic Image Carousel**: Utilizes `framer-motion` for smooth transitions between main images.
+- **Navbar for Mobile and Desktop**: A hamburger menu appears on mobile with a close button for easy navigation.
+- **Animated Transitions**: Uses `framer-motion` for fluid animations during image changes.
+- **Navigation Buttons**: Users can navigate between carousel images via custom navigation buttons.
 
-## Technologies Utilisées
+## Technologies Used
 
-- **React** : Utilisé pour construire l'interface utilisateur.
-- **CSS (sans framework)** : Pour le style de l'application.
-- **Framer Motion** : Pour gérer les animations et transitions d'images.
-- **Vite** : Utilisé pour un bundling rapide lors du développement.
+- **React**: Used to build the user interface.
+- **CSS (without framework)**: For styling the application.
+- **Framer Motion**: To handle animations and image transitions.
+- **Vite**: Used for fast bundling during development.
 
-## Utilisation
+## What I Learned
 
-Une fois le serveur démarré, vous pouvez accéder à l'application via [http://localhost:3000](http://localhost:3000). La page affichera la version desktop si vous avez un écran large, ou la version mobile si vous redimensionnez votre fenêtre ou utilisez un appareil mobile.
+This project allowed me to improve in several areas:
 
-## Ce Que J'ai Appris
+- **Image Layout**: I learned to use CSS Grid to position images more effectively, which has always been a challenge for me in the past.
+- **Framer Motion**: I discovered how to create smooth and responsive animations to enhance the user experience.
+- **useRef and Dynamic Width Calculation**: One part I am most proud of is the calculation I implemented to manage the carousel navigation buttons using `useRef` to dynamically calculate the width.
 
-Ce projet m'a permis de m'améliorer sur plusieurs aspects :
+## Challenges
 
-- **Disposition des Images** : J'ai appris à utiliser CSS Grid pour positionner les images de manière plus efficace, ce qui m'a toujours posé problème par le passé.
-- **Framer Motion** : J'ai découvert comment créer des animations fluides et réactives pour améliorer l'expérience utilisateur.
-- **useRef et Calcul Dynamique de Largeur** : Une des parties dont je suis le plus fier est le calcul que j'ai implémenté pour gérer les boutons de navigation du carousel en utilisant `useRef` afin de calculer dynamiquement la largeur.
-
-## Défis
-
-- **Responsive Design** : Le passage de la version desktop à la version mobile a nécessité une gestion soignée des images et du layout. J'ai utilisé des hooks React pour détecter la taille de l'écran et changer les images en fonction de la largeur de la fenêtre.
+- **Responsive Design**: Transitioning from the desktop version to the mobile version required careful management of images and layout. I used React hooks to detect screen size and change images based on window width.
