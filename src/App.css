@@ -9,6 +9,11 @@ body {
   padding: 0;
 }
 
+.pop-up-nav,
+.hamburger {
+  display: none;
+}
+
 .header {
   display: flex;
   gap: 2rem;
