@@ -14,12 +14,16 @@ import rightImg from "./assets/images/image-about-light.jpg";
 import arrowButtonIcon from "./assets/icons/icon-arrow.svg";
 import arrowLeftIcon from "./assets/icons/icon-angle-left.svg";
 import arrowRightIcon from "./assets/icons/icon-angle-right.svg";
+import hamburgerIcon from "./assets/icons/icon-hamburger.svg";
+import closeIcon from "./assets/icons/icon-close.svg";
 
 const dataNavbar = ["home", "shop", "about", "contact"];
 
 function App() {
   const [widthScreen, setWidthScreen] = useState(window.innerWidth);
   const [mainImage, setMainImage] = useState(0);
+  const [navMobile, setNavMobile] = useState(false);
+  console.log(navMobile);
 
   // Determine which image set to use based on screen width
   const imageArray = useMemo(() => {
@@ -97,6 +101,27 @@ function App() {
   return (
     <>
       <header className="header">
+        <section className={`pop-up-nav ${navMobile ? "active" : ""}`}>
+          <img
+            className="close-icon"
+            src={closeIcon}
+            onClick={() => setNavMobile(!navMobile)}
+            alt=""
+          />
+          <ul className="navbar__list--mobile">
+            {dataNavbar.map((item, index) => (
+              <li key={index} className="navbar__item">
+                {item}
+              </li>
+            ))}
+          </ul>
+        </section>
+        <img
+          className="hamburger"
+          src={hamburgerIcon}
+          alt=""
+          onClick={() => setNavMobile(!navMobile)}
+        />
         <h1 className="header__title header__title--highlight">room</h1>
 
         <ul className="navbar__list">
